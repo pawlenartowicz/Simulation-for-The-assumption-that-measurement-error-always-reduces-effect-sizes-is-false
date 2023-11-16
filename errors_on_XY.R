@@ -10,7 +10,7 @@ meanRS2 <-numeric(len)
 
 xerror<-0.5
 yerror<-0.5
-n_sims<- 200
+n_sims<- 2000
 
 for (j in 1:len)  {
   
@@ -22,12 +22,12 @@ for (j in 1:len)  {
     x <- rnorm(powers[j],0,1)
     y <- r*x + rnorm(powers[j],0,1)
     y_bis <- y + rnorm(powers[j],0,yerror)
-    xx<-lm(scale(y_bis)~scale(x))
+    xx<-lm(y_bis~x)
     sims[i,1:2]<-summary(xx)$coefficients[2,1:2]
     # error in x
     x_bis <-x + rnorm(powers[j],0,xerror)
     y<-y
-    xx<-lm(scale(y)~scale(x_bis))
+    xx<-lm(y~x_bis)
     sims[i,3:4]<-summary(xx)$coefficients[2,1:2]
   }
   
